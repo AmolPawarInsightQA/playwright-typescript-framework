@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2022", //It tells TypeScript which JavaScript version your TypeScript should target.
+    "module": "CommonJS", //It defines the JavaScript module system TypeScript should use when compiling.
+    "moduleResolution": "Node", //This tells TypeScript to use Node-style rules when figuring out where an imported module comes from.
+    "strict": true, //This enables all strict type-checking options in TypeScript, helping catch potential errors and bugs.
+    "esModuleInterop": true,//This makes working with some CommonJS packages easier when using ES-style imports.
+    "resolveJsonModule": true, //This allows you to import .json files into TypeScript.
+    "types": ["node", "@playwright/test"] //This tells TypeScript which type definitions should be available in your project.
+  },
+  "include": ["**/*.ts"] //Include all .ts files under this project when TypeScript analyzes the project.
+}
