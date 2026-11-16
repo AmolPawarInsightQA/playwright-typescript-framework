@@ -1,6 +1,6 @@
 import { test, expect } from '../fixtures/testFixtures';
 
-test('social links open the expected pages and user can sign in', async ({ page, pageNavigation }) => {
+test('social links open the expected pages and user can sign in', { tag: '@regression' }, async ({ page, pageNavigation }) => {
   await pageNavigation.openLoginPage();
 
   const youtubePage = await pageNavigation.openSocialPage(pageNavigation.youtubeButton);

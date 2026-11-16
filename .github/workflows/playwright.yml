@@ -4,6 +4,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
 jobs:
   test:
     timeout-minutes: 60
@@ -31,8 +32,12 @@ jobs:
         run: npm ci
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
-      - name: Run Playwright tests
+      - name: Run all Playwright tests
+        if: github.event_name != 'workflow_dispatch'
         run: npm run test
+      - name: Run regression tests
+        if: github.event_name == 'workflow_dispatch'
+        run: npm run 'test:@regression'
       - name: Generate Allure report
         if: always()
         run: |
@@ -55,26 +60,26 @@ jobs:
           path: playwright-report/
           retention-days: 30
       - name: Checkout GitHub Pages reports
-        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        if: always() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
         continue-on-error: true
         uses: actions/checkout@v6
         with:
           ref: gh-pages
           path: gh-pages
       - name: Add this run's Allure report
-        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        if: always() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
         run: |
           mkdir -p "gh-pages/reports/${GITHUB_RUN_NUMBER}"
           cp -R allure-report/. "gh-pages/reports/${GITHUB_RUN_NUMBER}/"
       - name: Publish Allure reports to GitHub Pages
-        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        if: always() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_branch: gh-pages
           publish_dir: gh-pages
       - name: Add Allure report link to run summary
-        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        if: always() && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
         run: |
           echo "### Allure report" >> "$GITHUB_STEP_SUMMARY"
           echo "[Open report for run ${GITHUB_RUN_NUMBER}](https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/reports/${GITHUB_RUN_NUMBER}/)" >> "$GITHUB_STEP_SUMMARY"

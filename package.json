@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "test": "npx playwright test",
+    "test:@regression": "npx playwright test --grep @regression",
     "test:headed": "npx playwright test --headed",
     "test:page-navigation": "npx playwright test tests/pageNavigation.spec.ts --headed",
     "test:debug": "npx playwright test --debug",
