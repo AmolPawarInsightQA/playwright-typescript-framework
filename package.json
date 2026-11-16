@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "playwright test",
-    "test:headed": "playwright test --headed",
-    "test:page-navigation": "playwright test tests/pageNavigation.spec.ts --headed",
-    "test:debug": "playwright test --debug",
-    "test:chrome": "playwright test --project=chromium",
-    "report": "playwright show-report",
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:page-navigation": "npx playwright test tests/pageNavigation.spec.ts --headed",
+    "test:debug": "npx playwright test --debug",
+    "test:chrome": "npx playwright test --project=chromium",
+    "report": "npx playwright show-report",
     "allure:generate": "allure generate allure-results --clean -o allure-report",
     "allure:open": "allure open allure-report"
   },
