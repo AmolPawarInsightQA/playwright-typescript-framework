@@ -28,6 +28,7 @@ export class BasePage {
     await locator.waitFor({ state: "visible" });
   }
   async getText(locator: Locator): Promise<string> {
+    //Get the element's text → remove extra spaces → if there is no text, return an empty string.
     return (await locator.textContent())?.trim() ?? "";
   }
   async verifyVisible(locator: Locator): Promise<void> {

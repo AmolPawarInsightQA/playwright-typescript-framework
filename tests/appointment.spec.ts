@@ -2,7 +2,7 @@ import { test, expect } from '../fixtures/testFixtures';
 import { env } from '../config/environment';
 
 test.describe('Should able to make an appointment', { tag: '@regression' }, () => {
-  test.beforeEach(async ({ loginPage }) => {
+  test.beforeEach(async ({ loginPage}) => {
     await loginPage.open();
     await loginPage.login(env.app_username, env.app_password);
   });
