@@ -8,6 +8,8 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     env:
       RUNNER: ${{ secrets.RUNNER}}
       ENV: ${{ secrets.ENV}}
@@ -31,9 +33,48 @@ jobs:
         run: npx playwright install --with-deps
       - name: Run Playwright tests
         run: npm run test
+      - name: Generate Allure report
+        if: always()
+        run: |
+          if [ -d allure-results ] && [ "$(find allure-results -type f | wc -l)" -gt 0 ]; then
+            npm run allure:generate
+          else
+            echo "No Allure results were generated."
+          fi
+      - name: Upload Allure report
+        if: always() && hashFiles('allure-report/index.html') != ''
+        uses: actions/upload-artifact@v5
+        with:
+          name: allure-report-${{ github.run_number }}
+          path: allure-report/
+          retention-days: 30
       - uses: actions/upload-artifact@v5
         if: ${{ !cancelled() }}
         with:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+      - name: Checkout GitHub Pages reports
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        continue-on-error: true
+        uses: actions/checkout@v6
+        with:
+          ref: gh-pages
+          path: gh-pages
+      - name: Add this run's Allure report
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        run: |
+          mkdir -p "gh-pages/reports/${GITHUB_RUN_NUMBER}"
+          cp -R allure-report/. "gh-pages/reports/${GITHUB_RUN_NUMBER}/"
+      - name: Publish Allure reports to GitHub Pages
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: gh-pages
+      - name: Add Allure report link to run summary
+        if: always() && github.event_name == 'push' && github.ref == 'refs/heads/main' && hashFiles('allure-report/index.html') != ''
+        run: |
+          echo "### Allure report" >> "$GITHUB_STEP_SUMMARY"
+          echo "[Open report for run ${GITHUB_RUN_NUMBER}](https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/reports/${GITHUB_RUN_NUMBER}/)" >> "$GITHUB_STEP_SUMMARY"
