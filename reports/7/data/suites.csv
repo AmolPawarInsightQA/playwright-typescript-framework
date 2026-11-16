@@ -1,0 +1,5 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5848","social links open the expected pages and user can sign in","chromium","2026-11-16","passed","2026-11-16","","pageNavigation.spec.ts","",""
+"","163","seed","chromium","2026-11-16","passed","2026-11-16","Test group","seed.spec.ts","",""
+"","938","Test checkbox and radio button","chromium","2026-11-16","passed","2026-11-16","Should able to make an appointment","appointment.spec.ts","",""
+"","715","User should login successfully","chromium","2026-11-16","passed","2026-11-16","","login.spec.ts","",""
