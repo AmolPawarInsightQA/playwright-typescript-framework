@@ -1,4 +1,9 @@
 {
+
+  //tells TypeScript how to understand the code
+  //ypeScript’s project settings. It controls things like the JavaScript version to target, 
+  // strict type checking, module handling, and which TypeScript files to include.
+  
   "compilerOptions": {
     "target": "ES2022", //It tells TypeScript which JavaScript version your TypeScript should target.
     "module": "CommonJS", //It defines the JavaScript module system TypeScript should use when compiling.

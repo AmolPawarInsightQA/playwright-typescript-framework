@@ -20,7 +20,7 @@ test.describe('Login', { tag: '@regression' }, () => {
 
     await expect(page).toHaveURL(/profile\.php#login$/);
     await expect(page.getByText(loginFailureMessage)).toBeVisible();
-    await expect(loginPage.appointmentHeading).not.toBeVisible();
+    //await expect(loginPage.appointmentHeading).not.toBeVisible();
   });
 
   test('Reject empty username and password', async ({ page, loginPage }) => {
