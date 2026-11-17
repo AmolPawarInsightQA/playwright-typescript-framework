@@ -17,8 +17,6 @@ A short interview explanation:
 - `config/environment.ts`: Reads environment variables and provides defaults for the URL, credentials, workers, and timeouts.
 - `playwright.config.ts`: Sets test discovery, browser project, parallel execution, retries, timeouts, reporters, and failure artifacts.
 - `global/`: Code that runs once before and after the test run.
-- `test-data/`: External test data, such as `users.json`.
-- `utils/`: Shared helper code, such as logging.
 - `Jenkinsfile`: Example pipeline for installing dependencies, running tests, and archiving results.
 - `playwright-report/` and `test-results/`: Generated test reports and artifacts.
 
@@ -90,12 +88,11 @@ The `Jenkinsfile` installs dependencies and browsers, runs `npm test`, and archi
 
 ### 17. What would you improve in this framework?
 
-I would keep assertions and page-specific locators in page objects where appropriate, use the existing test-data files consistently, and ensure credentials come from secure environment variables in CI. I would also add tests for important edge cases and review reports after failures.
+I would keep assertions and page-specific locators in page objects where appropriate, separate test data from test logic as data-driven scenarios grow, and ensure credentials come from secure environment variables in CI. I would also add tests for important edge cases and review reports after failures.
 
 ## Be Ready to Explain These Project Details
 
 - The valid login credentials come from `env` configuration.
-- `test-data/users.json` exists, but the current login test does not use it. Don’t claim the login tests are JSON-driven unless you first update and verify them.
 - The login spec currently uses the page object for login actions, but it still uses `page` directly for some assertions. Be accurate if asked whether all locators are inside page objects.
 - Only Chromium is enabled in the current Playwright project configuration; Firefox and WebKit are commented out.
 - The framework runs tests in parallel, so each test should be independent.

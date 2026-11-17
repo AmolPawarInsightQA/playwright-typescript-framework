@@ -27,8 +27,6 @@ Configuration flow:
 - `tests/` - Playwright `.spec.ts` tests.
 - `config/` - URL, environment and timeout configuration.
 - `global/` - One-time global setup and teardown examples.
-- `test-data/` - External test data.
-- `utils/` - Framework helper utilities.
 - `.github/workflows/` - GitHub Actions CI.
 
 ## Parallel Execution
