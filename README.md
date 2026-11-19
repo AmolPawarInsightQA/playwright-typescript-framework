@@ -61,7 +61,6 @@ Timeout values are maintained in `.env` and loaded by `config/environment.ts`:
 
 ## CI/CD
 
-- `Jenkinsfile` provides a Jenkins pipeline example.
 - `.github/workflows/playwright.yml` provides GitHub Actions execution.
 
 ## How to Run
