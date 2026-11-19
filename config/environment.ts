@@ -7,10 +7,10 @@ const numberValue = (name: string, fallback: number): number => {
 };
 
 export const env = {
-  name: process.env.ENV || 'qa',
-  baseURL: process.env.BASE_URL || 'https://katalon-demo-cura.herokuapp.com/',
-  app_username: process.env.APP_USERNAME || 'John Doe',
-  app_password: process.env.APP_PASSWORD || 'ThisIsNotAPassword',
+  name: process.env.ENV,
+  baseURL: process.env.BASE_URL,
+  app_username: process.env.APP_USERNAME,
+  app_password: process.env.APP_PASSWORD,
   testTimeout: numberValue('TEST_TIMEOUT', 60_000),
   expectTimeout: numberValue('EXPECT_TIMEOUT', 10_000),
   actionTimeout: numberValue('ACTION_TIMEOUT', 15_000),
