@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","1537","Test checkbox and radio button","chromium","2026-11-19","passed","2026-11-19","Should able to make an appointment","appointment.spec.ts","",""
+"","5408","social links open the expected pages and user can sign in","chromium","2026-11-19","passed","2026-11-19","","pageNavigation.spec.ts","",""
+"","1035","Reject invalid username and password","chromium","2026-11-19","passed","2026-11-19","Login","login.spec.ts","",""
+"","189","seed","chromium","2026-11-19","passed","2026-11-19","Test group","seed.spec.ts","",""
+"","10979","Reject empty username and password","chromium","2026-11-19","failed","2026-11-19","Login","login.spec.ts","",""
+"","1404","Successful login with valid demo credentials","chromium","2026-11-19","passed","2026-11-19","Login","login.spec.ts","",""
